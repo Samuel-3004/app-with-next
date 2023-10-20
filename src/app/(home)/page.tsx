@@ -63,7 +63,10 @@ export default async function Home() {
         />
       </div>
 
-
+      <div>
+        <SectionTitle>Mouses</SectionTitle>
+        <ProductList products={mouses} />
+      </div>
     </div>
   );
 }
