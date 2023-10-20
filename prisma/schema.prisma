@@ -16,7 +16,7 @@ model Category {
   slug String
   imageUrl String
 
-  product Product[]
+  products Product[]
 }
 
 model Product {
