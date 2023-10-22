@@ -12,6 +12,7 @@ interface ICartContext {
   cartBasePrice: number;
   cartTotalDiscount: number;
   addProductToCart: (product: ICartProduct) => void;
+  decreaseProductQuantity: (productId: string) => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -20,6 +21,7 @@ export const CartContext = createContext<ICartContext>({
   cartBasePrice: 0,
   cartTotalDiscount: 0,
   addProductToCart: () => {},
+  decreaseProductQuantity: () => {},
 });
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
@@ -29,7 +31,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
     const productIsAlreadyOnCart = products.some(
       (cartProduct) => cartProduct.id === product.id,
     );
-    
+
     if (productIsAlreadyOnCart) {
       const newList = products.map((productList) => {
         if (productList.id === product.id) {
@@ -46,11 +48,31 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
       setProducts([...products, product]);
     }
   };
+
+  const decreaseProductQuantity = (productId: string) => {
+    const decreaseProduct = products.map((product) => {
+      if (product.id === productId) {
+        return {
+          ...product,
+          quantity: Number(product.quantity) - 1,
+        };
+      } else {
+        return product;
+      }
+    });
+
+    const newListProducts = decreaseProduct.filter(
+      (product) => product.quantity !== 0,
+    );
+    setProducts([...newListProducts]);
+  };
+
   return (
     <CartContext.Provider
       value={{
         products,
         addProductToCart,
+        decreaseProductQuantity,
         cartTotalPrice: 0,
         cartBasePrice: 0,
         cartTotalDiscount: 0,
