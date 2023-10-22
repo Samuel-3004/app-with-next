@@ -11,6 +11,7 @@ interface ICartItemProps {
 const CartItem = ({ product }: ICartItemProps) => {
   const {
     decreaseProductQuantity,
+    increaseProductQuantity,
   } = useContext(CartContext);
   return (
     <div className="flex items-center justify-between">
@@ -48,6 +49,7 @@ const CartItem = ({ product }: ICartItemProps) => {
             </Button>
             <span className="text-xs">{product.quantity}</span>
             <Button
+              onClick={() => increaseProductQuantity(product.id)}
               size="icon"
               variant="outline"
               className="h-8 w-8"
