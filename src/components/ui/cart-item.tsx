@@ -12,6 +12,7 @@ const CartItem = ({ product }: ICartItemProps) => {
   const {
     decreaseProductQuantity,
     increaseProductQuantity,
+    deleteProductCart,
   } = useContext(CartContext);
   return (
     <div className="flex items-center justify-between">
@@ -59,10 +60,7 @@ const CartItem = ({ product }: ICartItemProps) => {
           </div>
         </div>
       </div>
-      <Button
-        size="icon"
-        variant="outline"
-      >
+      <Button onClick={() => deleteProductCart(product.id)} size="icon" variant="outline">
         <TrashIcon size={16} />
       </Button>
     </div>

@@ -2,8 +2,8 @@ import { prismaClient } from "@/lib/prisma";
 import ProductImages from "./components/product-images";
 import ProductInfo from "./components/products-info";
 import { computeProductTotalPrice } from "@/helpers/product";
-import ProductList from "@/components/ui/product-list";
-import SectionTitle from "@/components/ui/section-title";
+import ProductList from "@/app/(home)/components/product-list";
+import SectionTitle from "@/app/(home)/components/section-title";
 
 interface IProductDeteilsPageProps {
   params: {
