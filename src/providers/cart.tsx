@@ -1,6 +1,6 @@
 "use client";
 import { IProductWithTotalPrice } from "@/helpers/product";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useMemo, useState } from "react";
 
 export interface ICartProduct extends IProductWithTotalPrice {
   quantity: number;
@@ -11,6 +11,9 @@ interface ICartContext {
   cartTotalPrice: number;
   cartBasePrice: number;
   cartTotalDiscount: number;
+  subtotal: number;
+  total: number;
+  totalDiscount: number;
   addProductToCart: (product: ICartProduct) => void;
   increaseProductQuantity: (productId: string) => void;
   decreaseProductQuantity: (productId: string) => void;
@@ -22,6 +25,9 @@ export const CartContext = createContext<ICartContext>({
   cartTotalPrice: 0,
   cartBasePrice: 0,
   cartTotalDiscount: 0,
+  subtotal: 0,
+  total: 0,
+  totalDiscount: 0,
   addProductToCart: () => {},
   increaseProductQuantity: () => {},
   decreaseProductQuantity: () => {},
@@ -30,6 +36,20 @@ export const CartContext = createContext<ICartContext>({
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<ICartProduct[]>([]);
+
+  const subtotal = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.basePrice);
+    }, 0);
+  }, [products]);
+
+  const total = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.totalPrice);
+    }, 0);
+  }, [products]);
+
+  const totalDiscount = subtotal - total;
 
   const addProductToCart = (product: ICartProduct) => {
     const productIsAlreadyOnCart = products.some(
@@ -68,7 +88,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const decreaseProductQuantity = (productId: string) => {
-    const decreaseProduct = products.map(product => {
+    const decreaseProduct = products.map((product) => {
       if (product.id === productId) {
         return {
           ...product,
@@ -80,7 +100,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
     });
 
     const newListProducts = decreaseProduct.filter(
-      product => product.quantity !== 0,
+      (product) => product.quantity !== 0,
     );
     setProducts([...newListProducts]);
   };
@@ -103,6 +123,9 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
         cartTotalPrice: 0,
         cartBasePrice: 0,
         cartTotalDiscount: 0,
+        subtotal,
+        total,
+        totalDiscount,
       }}
     >
       {children}
