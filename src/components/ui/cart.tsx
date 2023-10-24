@@ -18,7 +18,7 @@ const Cart = () => {
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
     stripe?.redirectToCheckout({
-      sessionId: checkout.id, 
+      sessionId: checkout.id,
     });
   };
 
@@ -49,6 +49,7 @@ const Cart = () => {
           </div>
         </ScrollArea>
       </div>
+        {products.length > 0 && (
       <div className="flex flex-col gap-3">
         <Separator />
         <div className="flex items-center justify-between text-xs">
@@ -70,13 +71,14 @@ const Cart = () => {
           <p>Total</p>
           <p>R$ {total.toFixed(2)}</p>
         </div>
-        <Button
-          onClick={handleFinishPurchaseClick}
-          className="mt-7 font-bold uppercase"
-        >
-          Finalizar compra
-        </Button>
+          <Button
+            onClick={handleFinishPurchaseClick}
+            className="mt-7 font-bold uppercase"
+          >
+            Finalizar compra
+          </Button>
       </div>
+        )}
     </div>
   );
 };
