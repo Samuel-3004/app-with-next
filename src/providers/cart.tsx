@@ -3,7 +3,6 @@ import { IProductWithTotalPrice } from "@/helpers/product";
 import { ReactNode, createContext, useMemo, useState } from "react";
 
 export interface ICartProduct extends IProductWithTotalPrice {
-  map(arg0: (product: any) => {}): import("stripe").Stripe.Checkout.SessionCreateParams.LineItem[] | undefined;
   quantity: number;
 }
 
