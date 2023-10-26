@@ -4,13 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import DiscountBadge from "./discount-badge";
 
+import { cn } from "@/lib/utils";
+
 interface IProductItemProps {
   product: IProductWithTotalPrice;
+  className?: string;
 }
 
-const ProductItem = ({ product }: IProductItemProps) => {
+const ProductItem = ({ product, className }: IProductItemProps) => {
   return (
-    <Link href={`/product/${product.slug}`}>
+    <Link href={`/product/${product.slug}`} className={cn("flex min-w-[156px] flex-col gap-4", className)}>
       <div className="flex flex-col gap-4">
         <div className=" relative flex h-[170px] w-full items-center justify-center rounded-lg bg-accent">
           <Image
