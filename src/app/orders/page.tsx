@@ -1,4 +1,3 @@
-"use server"
 import { Badge } from "@/components/ui/badge";
 import { authOptions } from "@/lib/auth";
 import { prismaClient } from "@/lib/prisma";
