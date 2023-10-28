@@ -1,3 +1,4 @@
+"use server"
 import { Badge } from "@/components/ui/badge";
 import { authOptions } from "@/lib/auth";
 import { prismaClient } from "@/lib/prisma";
@@ -5,8 +6,10 @@ import { PackageSearchIcon } from "lucide-react";
 import { getServerSession } from "next-auth";
 import OrderItem from "./components/order-item";
 
+export const dynamic = "force-dynamic";
+
 const OrderPage = async () => {
-  const user = getServerSession(authOptions);
+  const user = await getServerSession(authOptions);
 
   if (!user) {
     return <p>Access Denied</p>;
