@@ -51,7 +51,9 @@ const OrderItem = ({ order }: IOrderItemProps) => {
         <AccordionItem value={order.id}>
           <AccordionTrigger>
             <div className="flex flex-col gap-1 text-left">
-              <p>Pedido com {order.orderProducts.length} produto(s)</p>
+              <p className="font-bold uppercase">
+                Pedido com {order.orderProducts.length} produto(s)
+              </p>
               <span className="text-sm opacity-60">
                 Feito em {format(order.createdAt, "d/MM/y 'às' HH:mm")}
               </span>
@@ -62,7 +64,10 @@ const OrderItem = ({ order }: IOrderItemProps) => {
               <div className="flex items-center justify-between">
                 <div className="font-bold">
                   <p>Status</p>
-                  <p className="text-[#8162FF]"> {getOrderStatus(order.status)}</p>
+                  <p className="text-[#8162FF]">
+                    {" "}
+                    {getOrderStatus(order.status)}
+                  </p>
                 </div>
                 <div>
                   <p className="font-bold">Data</p>
